@@ -25,7 +25,7 @@ typedef struct {
     int cantidad;
 } Pila;
 
-// Prototipos de funciones
+
 void inicializarCola(Cola *cola);
 void inicializarPila(Pila *pila);
 bool estaColaVacia(Cola *cola);
@@ -90,7 +90,7 @@ int main() {
     return 0;
 }
 
-// Implementación de funciones
+
 
 void inicializarCola(Cola *cola) {
     cola->frente = NULL;
@@ -112,7 +112,7 @@ bool estaPilaVacia(Pila *pila) {
 }
 
 void agregarJugadorACola(Cola *cola, Pila *historial) {
-    // Verificar diferencia de géneros
+   
     int diferencia = diferenciaGeneros(cola);
     if (abs(diferencia) > 4) {
         printf("No se pueden agregar mas jugadores. Diferencia de generos: %d (max 4 permitido).\n", abs(diferencia));
@@ -177,20 +177,20 @@ void permitirParticipacion(Cola *cola, Pila *historial) {
     
     Jugador *participante = cola->frente;
     
-    // Validar edad
+    
     if (participante->edad < 15) {
         printf("El jugador %s no puede participar por ser menor de 15 años.\n", participante->nombre);
         return;
     }
     
-    // Quitar de la cola
+    
     cola->frente = cola->frente->siguiente;
     if (cola->frente == NULL) {
         cola->final = NULL;
     }
     cola->cantidad--;
     
-    // Agregar al historial (pila)
+    
     participante->siguiente = historial->tope;
     historial->tope = participante;
     historial->cantidad++;
@@ -223,7 +223,7 @@ void deshacerUltimaParticipacion(Cola *cola, Pila *historial) {
     historial->tope = historial->tope->siguiente;
     historial->cantidad--;
     
-    // Agregar al final de la cola
+    
     jugador->siguiente = NULL;
     if (estaColaVacia(cola)) {
         cola->frente = jugador;
@@ -253,14 +253,14 @@ int diferenciaGeneros(Cola *cola) {
 }
 
 void liberarMemoria(Cola *cola, Pila *historial) {
-    // Liberar memoria de la cola
+    
     while (!estaColaVacia(cola)) {
         Jugador *temp = cola->frente;
         cola->frente = cola->frente->siguiente;
         free(temp);
     }
     
-    // Liberar memoria de la pila
+
     while (!estaPilaVacia(historial)) {
         Jugador *temp = historial->tope;
         historial->tope = historial->tope->siguiente;
